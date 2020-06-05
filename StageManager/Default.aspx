@@ -1,42 +1,19 @@
-﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="StageManager._Default" %>
+﻿<%@ Page Title="Accueil" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.vb" Inherits="StageManager._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+    <h1 class="font-semibold text-4xl">Consider me as your college journal</h1>
+    <h1 class="font-semibold text-4xl text-teal-500">Write your reports, share your experiences & keep fun memories</h1>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting Started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
-        </div>
+    <p class="my-5 font-semibold">
+        Here is a place when you can keep your really hardwork when you were in internship.
+        I mean all the brain teasing, the errors, the bugs & the syntax errors. <br />
+        Not only that, you can keep your notes here also
+    </p>
+
+    <div class="my-10">
+        <a href="users/login.aspx" class="font-semibold text-2xl rounded-lg shadow-lg px-5 py-5 bg-teal-500 mr-5 text-white">Sign in</a>
+        <a href="users/register.aspx" class="font-semibold text-2xl rounded-lg shadow-lg px-5 py-5">Join us!</a>
     </div>
 
 </asp:Content>

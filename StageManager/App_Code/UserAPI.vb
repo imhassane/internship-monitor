@@ -47,7 +47,7 @@ Namespace TH
                     Try
                         transaction.Rollback()
                     Catch ex2 As Exception
-
+                        result = -1
                     End Try
                 End Try
             End Using
