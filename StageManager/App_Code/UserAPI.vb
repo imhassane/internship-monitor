@@ -60,16 +60,18 @@ Namespace TH
 #End Region
 
 #Region "Authenticating user"
-        Public Shared Function AuthenticateWithEmailAndPassword(ByVal email As String, ByVal password As String) As Integer
+        Public Shared Function AuthenticateWithEmailAndPassword(ByVal email As String, ByVal password As String) As Dictionary(Of String, String)
             Using connection As SqlConnection = TH.DBApi.GetConnection
+                connection.Open()
 
                 Dim query = "SELECT
                                 cre.cre_id,
                                 mem_first_name, mem_last_name
                             FROM t_credentials_cre as cre
                             JOIN t_member_mem as mem ON cre.cre_id = mem.cre_id
-                            WHERE cre_email = @Email AND cre_password = @Password"
-                Dim params(2) As SqlParameter
+                            WHERE cre_email = @Email AND cre_password = HASHBYTES('SHA2_256', @Password)"
+
+                Dim params(1) As SqlParameter
                 params(0) = New SqlParameter() With {
                     .ParameterName = "@Email", .DbType = Data.SqlDbType.VarChar, .Value = email
                 }
@@ -77,15 +79,38 @@ Namespace TH
                 params(1) = New SqlParameter() With {
                     .ParameterName = "@Password", .DbType = Data.SqlDbType.VarChar, .Value = password
                 }
-                Dim result = Nothing
-                Dim reader As SqlDataReader = TH.DBApi.GetDataReader(connection, query)
+
+                Dim result As New Dictionary(Of String, String)
+                Dim reader As SqlDataReader = TH.DBApi.GetDataReader(connection, query, params)
                 reader.Read()
-                result = reader(0)
+
+                result.Add("id", reader(0))
+                result.Add("first_name", IIf(IsDBNull(reader(1)), Nothing, reader(1)))
+                result.Add("last_name", IIf(IsDBNull(reader(2)), Nothing, reader(2)))
+
+                reader.Close()
+                ' Getting the user's total internships.
+                query = "SELECT COUNT(int_id) FROM t_internship_int WHERE cre_id = " & result("id")
+                reader = DBApi.GetDataReader(connection, query)
+                reader.Read()
+                result.Add("total_internships", IIf(IsDBNull(reader(0)), "0", reader(0).ToString))
                 reader.Close()
 
+                ' Getting the user's total projects.
+                query = "SELECT
+                            COUNT(pro.pro_id)
+                        FROM t_project_pro AS pro
+                        JOIN t_internship_int as int ON int.int_id = pro.int_id
+                        JOIN t_credentials_cre as cre ON cre.cre_id = int.cre_id
+                        WHERE cre.cre_id = " & result("id")
+                reader = DBApi.GetDataReader(connection, query)
+                reader.Read()
+                result.Add("total_projects", IIf(IsDBNull(reader(0)), "0", reader(0).ToString))
+                reader.Close()
                 Return result
             End Using
-            Return -1
+
+            Return Nothing
         End Function
 #End Region
 

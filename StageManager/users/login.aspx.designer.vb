@@ -14,22 +14,49 @@ Option Explicit On
 Partial Public Class login
 
     '''<summary>
-    '''Contrôle EmailBox.
+    '''Contrôle ErrorSubmit.
     '''</summary>
     '''<remarks>
     '''Champ généré automatiquement.
     '''Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
     '''</remarks>
-    Protected WithEvents EmailBox As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ErrorSubmit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Contrôle PasswordBox.
+    '''Contrôle EmailTextBox.
     '''</summary>
     '''<remarks>
     '''Champ généré automatiquement.
     '''Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
     '''</remarks>
-    Protected WithEvents PasswordBox As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents EmailTextBox As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Contrôle ErrorEmail.
+    '''</summary>
+    '''<remarks>
+    '''Champ généré automatiquement.
+    '''Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+    '''</remarks>
+    Protected WithEvents ErrorEmail As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Contrôle PasswordTextBox.
+    '''</summary>
+    '''<remarks>
+    '''Champ généré automatiquement.
+    '''Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+    '''</remarks>
+    Protected WithEvents PasswordTextBox As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Contrôle ErrorPassword.
+    '''</summary>
+    '''<remarks>
+    '''Champ généré automatiquement.
+    '''Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+    '''</remarks>
+    Protected WithEvents ErrorPassword As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Contrôle SubmitButton.

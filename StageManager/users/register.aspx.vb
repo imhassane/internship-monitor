@@ -2,7 +2,7 @@
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Session("user") Then
+        If Session("USER_ID") Then
             Response.Redirect("/dashboard")
         End If
     End Sub
