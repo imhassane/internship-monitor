@@ -9,6 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Mon ASP.NET Application</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #a19ea5;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23050308' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");    
+        }
+
+        .th-container {
+            min-height: 50vh;
+        }
+    </style>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -18,7 +28,7 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
-<body>
+<body class="m-0 p-0">
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -39,15 +49,56 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <div class="bg-white m-0 py-4 px-40 border-b-2 w-full mb-20">
+            <div class="flex justify-between">
+                <div class="flex-1">
+                    <a href="/" class="pr-5 border-r-2 border-gray-100 font-semibold text-4xl">Internship Notebook</a>
+                </div>
+               <div class="flex-1 md:block mt-4">
+                   <ul class="flex justify-end">
+                       <li class="mr-5 py-4 px-10 rounded-lg shadow-md">
+                           <a class="text-black font-semibold text-2xl" href="About.aspx">About</a>
+                       </li>
+                       <li class="py-4 px-10 rounded-lg shadow-md">
+                           <a class="text-black font-semibold text-2xl" href="Contact.aspx">Contact Me</a>
+                       </li>
+                   </ul>
+               </div>
+            </div>
+        </div>
+
+        <% If Not Session("user") %>
+        <div class="md:flex md:w-5/6 m-auto bg-white shadow rounded align-middle my-8 py-8 pl-10 border-l-8 border-teal-500">
+           <div class="flex-1 mr-4">
+                <img src="https://images.unsplash.com/photo-1565665580796-7258b3823736?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=443&q=80" class="object-cover rounded-full w-24 h-24" />
+           </div>
+           <ul class="flex-1 flex flex-wrap">
+                <li class="flex-1 text-center">
+                    <img src="./svg/online-learning.svg" class="w-12 h-12 object-cover m-auto" />
+                    <a class="font-semibold" href="Interships.aspx">Internships</a>
+                </li>
+               <li class="flex-1 text-center">
+                   <img src="./svg/factory.svg" class="w-12 h-12 object-cover m-auto" />
+                   <a class="font-semibold" href="Companies.aspx">Companies</a>
+                </li>
+               <li class="flex-1 text-center">
+                   <img src="./svg/teacher.svg" class="w-12 h-12 object-cover m-auto" />
+                   <a class="font-semibold" href="Responsibles.aspx">Responsibles</a>
+                </li>
+           </ul>
+        </div>
+        <% End If %>
+
         
-        <div class="container body-content">
+        <div class="md:w-5/6 m-auto rounded bg-white shadow th-container p-12">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr class="my-10 border-b-2" />
-            <footer>
-                <p>Made by <a href="https://github.com/imhassane" target="_blank">@imhassane</a></p>
-            </footer>
         </div>
+        
+        <hr class="my-10 border-b-2" />
+        <footer>
+           <p>Made by <a href="https://github.com/imhassane" target="_blank">@imhassane</a></p>
+        </footer>
 
     </form>
 </body>
