@@ -6,7 +6,7 @@ Namespace TH
     Public Class DBApi
 
         Public Shared Function GetConnection() As SqlConnection
-            Dim cString = ConfigurationManager.ConnectionStrings("").ConnectionString
+            Dim cString = ConfigurationManager.ConnectionStrings("DBConnection").ConnectionString
             Return New SqlConnection(cString)
         End Function
 
@@ -41,48 +41,29 @@ Namespace TH
 
         Public Shared Function RunQuery(ByVal connection As SqlConnection, ByVal query As String) As Integer
             Dim command As SqlCommand = connection.CreateCommand()
-            command.CommandText = query
             command.Connection = connection
 
-            command.Parameters.Add("@RETURN", SqlDbType.Int)
-            command.Parameters("@RETURN").Direction = ParameterDirection.ReturnValue
-            command.ExecuteNonQuery()
-
-            Return command.Parameters("@RETURN").Value
+            Return DBApi.RunQuery(command, query)
         End Function
 
         Public Shared Function RunQuery(ByVal connection As SqlConnection, ByVal query As String, ByVal params As SqlParameter()) As Integer
             Dim command As SqlCommand = connection.CreateCommand()
-            command.CommandText = query
             command.Connection = connection
             command.Parameters.AddRange(params)
 
-            command.Parameters.Add("@RETURN", SqlDbType.Int)
-            command.Parameters("@RETURN").Direction = ParameterDirection.ReturnValue
-            command.ExecuteNonQuery()
-
-            Return command.Parameters("@RETURN").Value
+            Return DBApi.RunQuery(command, query)
         End Function
 
-        Public Shared Function RunQuery(ByVal command As SqlCommand, ByVal query As String) As Integer
+        Public Shared Function RunQuery(ByRef command As SqlCommand, ByVal query As String) As Integer
             command.CommandText = query
-
-            command.Parameters.Add("@RETURN", SqlDbType.Int)
-            command.Parameters("@RETURN").Direction = ParameterDirection.ReturnValue
-            command.ExecuteNonQuery()
-
-            Return command.Parameters("@RETURN").Value
+            Return command.ExecuteScalar()
         End Function
 
-        Public Shared Function RunQuery(ByVal command As SqlCommand, ByVal query As String, ByVal params As SqlParameter()) As Integer
+        Public Shared Function RunQuery(ByRef command As SqlCommand, ByVal query As String, ByVal params As SqlParameter()) As Integer
             command.CommandText = query
             command.Parameters.AddRange(params)
 
-            command.Parameters.Add("@RETURN", SqlDbType.Int)
-            command.Parameters("@RETURN").Direction = ParameterDirection.ReturnValue
-            command.ExecuteNonQuery()
-
-            Return command.Parameters("@RETURN").Value
+            Return command.ExecuteScalar()
         End Function
 
     End Class

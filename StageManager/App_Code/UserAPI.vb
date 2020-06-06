@@ -10,7 +10,7 @@ Namespace TH
             Using connection As SqlConnection = TH.DBApi.GetConnection()
                 connection.Open()
 
-                Dim params(2) As SqlParameter
+                Dim params(1) As SqlParameter
                 Dim emailParam As New SqlParameter() With
                 {
                     .ParameterName = "@Email",
@@ -35,12 +35,14 @@ Namespace TH
 
                 Try
                     ' Creating user's credentials
-                    Dim query = "INSERT INTO t_credentials_cre(cre_email, cre_password) VALUES (@Email, HASHBYTES('SHA2_256', @Password)"
-                    result = TH.DBApi.RunQuery(connection, query, params)
+                    Dim query = "
+                        INSERT INTO t_credentials_cre(cre_email, cre_password)
+                        VALUES (@Email, HASHBYTES('SHA2_256', @Password))"
+                    result = DBApi.RunQuery(command, query, params)
 
                     ' Then creating user's profile
-                    query = "INSERT INTO t_member_mem(cre_id) VALUES(" & result & ")"
-                    TH.DBApi.RunQuery(connection, query)
+                    query = "INSERT INTO t_member_mem(cre_id) VALUES (" & result & ")"
+                    DBApi.RunQuery(command, query)
 
                     transaction.Commit()
                 Catch ex As Exception
@@ -49,6 +51,7 @@ Namespace TH
                     Catch ex2 As Exception
                         result = -1
                     End Try
+                    result = -1
                 End Try
             End Using
 
@@ -60,7 +63,12 @@ Namespace TH
         Public Shared Function AuthenticateWithEmailAndPassword(ByVal email As String, ByVal password As String) As Integer
             Using connection As SqlConnection = TH.DBApi.GetConnection
 
-                Dim query = "SELECT cre_id FROM t_credentials_cre WHERE cre_email = @Email AND cre_password = @Password"
+                Dim query = "SELECT
+                                cre.cre_id,
+                                mem_first_name, mem_last_name
+                            FROM t_credentials_cre as cre
+                            JOIN t_member_mem as mem ON cre.cre_id = mem.cre_id
+                            WHERE cre_email = @Email AND cre_password = @Password"
                 Dim params(2) As SqlParameter
                 params(0) = New SqlParameter() With {
                     .ParameterName = "@Email", .DbType = Data.SqlDbType.VarChar, .Value = email

@@ -14,8 +14,8 @@
     </p>
 
     <div class="my-10">
-        <a href="users/login.aspx" class="text-3xl rounded-lg shadow-lg px-10 py-5 bg-teal-500 mr-5 text-white">Sign in</a>
-        <a href="users/register.aspx" class="text-3xl rounded-lg shadow-lg px-10 py-5 bg-white">Join us!</a>
+        <a href="users/login.aspx" class="hover:text-white hover:no-underline text-3xl rounded-lg shadow-lg px-10 py-5 bg-teal-500 mr-5 text-white">Sign in</a>
+        <a href="users/register.aspx" class="text-teal-500 hover:no-underline text-3xl rounded-lg shadow-lg px-10 py-5 bg-white">Join us!</a>
     </div>
 
 </asp:Content>
